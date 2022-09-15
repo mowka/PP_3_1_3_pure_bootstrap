@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Добавление нового пользователя</title>
+  <style>
+    .btn {
+      display: inline-block; /* Строчно-блочный элемент */
+      background: #be123a; /* Серый цвет фона */
+      color: #fff; /* Белый цвет текста */
+      padding: 0.5rem 1rem; /* Поля вокруг текста */
+      text-decoration: none; /* Убираем подчёркивание */
+      border-radius: 3px; /* Скругляем уголки */
+    }
+  </style>
+</head>
+<body>
+<form th:method="POST" th:action="@{/admin/}" th:object="${newUser}">
+  <input type="hidden" name="id" th:field="*{id}">
+  <label for="username">Введите username: </label>
+  <input name="username" type="text" id="username" th:field="*{username}">
+  <br><br>
+  <label for="password">Введите пароль: </label>
+  <input name="password" type="text" id="password" th:field="*{password}"/>
+  <br><br>
+  <label for="name">Введите имя: </label>
+  <input name="name" type="text" id="name" th:field="*{name}">
+  <br><br>
+  <label for="surname">Введите фамилию: </label>
+  <input name="surname" type="text" id="surname" th:field="*{surname}"/>
+  <br><br>
+  <label for="age">Возраст</label>
+  <input name="age" type="text" id="age" th:field="*{age}"/>
+  <br><br>
+  <input type="submit" value="Подтвердить!"/>
+</form>
+<br>
+<br>
+<a th:href="@{/logout}" class="btn">Выйти</a>
+</body>
+</html>

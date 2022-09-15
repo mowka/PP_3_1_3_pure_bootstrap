@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Loop</title>
+  <style>
+    table th, table td {padding: 5px;}
+    .row  {
+      font-style: normal;
+      font-family: Cambria,serif;
+      font-weight: bold;
+    }
+    .even-row {
+      color: #383737;
+    }
+    .odd-row {
+      color: #be123a;
+    }
+    .btn {
+      display: inline-block; /* Строчно-блочный элемент */
+      background: #8C959D; /* Серый цвет фона */
+      color: #fff; /* Белый цвет текста */
+      padding: 0.5rem 1rem; /* Поля вокруг текста */
+      text-decoration: none; /* Убираем подчёркивание */
+      border-radius: 3px; /* Скругляем уголки */
+    }.btnExit {
+       display: inline-block; /* Строчно-блочный элемент */
+       background: #be123a; /* Серый цвет фона */
+       color: #fff; /* Белый цвет текста */
+       padding: 0.5rem 1rem; /* Поля вокруг текста */
+       text-decoration: none; /* Убираем подчёркивание */
+       border-radius: 3px; /* Скругляем уголки */
+     }
+  </style>
+</head>
+<body>
+<h1>Все пользователи</h1>
+<table border="1">
+  <tr>
+    <!--        <th>ID</th>-->
+    <th>Имя</th>
+    <th>Фамилия</th>
+    <th>Возраст</th>
+    <th>Логин</th>
+    <th>Роль</th>
+    <th>Операции</th>
+  </tr>
+  <tr th:each="user : ${users}"
+      class="row" th:classappend="${user.toString()} ? 'odd-row' : 'even-row'">
+    <td th:utext="${user.getName()}">Name</td>
+    <td th:utext="${user.getSurname()}">Surname</td>
+    <td th:utext="${user.getAge()}">Age</td>
+    <td th:utext="${user.getUsername()}">Username</td>
+    <td th:utext="${user.getRolesInfo()}">Roles</td>
+    <td><a class="btn" th:href="@{/admin/user-delete/{id}(id = ${user.getId()})}">Удалить</a>
+      <a class="btn" th:href="@{/admin/update-info/{id}(id = ${user.getId()})}">Редактировать</a>
+      <a class="btn" th:href="@{/admin/user-info/{id}(id = ${user.getId()})}">Данные</a>
+  </tr>
+</table>
+<br>
+<a href="/admin/add-user" class="btn">Добавить пользователя</a>
+</body>
+<br>
+<br>
+<a th:href="@{/logout}" class="btnExit">Выйти</a>
+</html>

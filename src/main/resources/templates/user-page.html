@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Привет пользователь: </title>
+  <style>
+    .btn {
+      display: inline-block; /* Строчно-блочный элемент */
+      background: #be123a; /* Серый цвет фона */
+      color: #fff; /* Белый цвет текста */
+      padding: 0.5rem 1rem; /* Поля вокруг текста */
+      text-decoration: none; /* Убираем подчёркивание */
+      border-radius: 3px; /* Скругляем уголки */
+    }
+  </style>
+</head>
+<body>
+Username
+<p th:text="${userInfo.getUsername()}"></p>
+Имя:
+<p th:text="${userInfo.getName()}"></p>
+Фамилия:
+<p th:text="${userInfo.getSurname()}"></p>
+Возраст:
+<p th:text="${userInfo.getAge()}"></p>
+<br>
+<br>
+<a th:href="@{/logout}" class="btn">Выйти</a>
+</body>
+</html>
