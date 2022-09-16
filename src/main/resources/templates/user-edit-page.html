@@ -33,10 +33,21 @@
   <label for="age">Возраст</label>
   <input name="age" type="text" id="age" th:field="*{age}"/>
   <br><br>
+  <p>
+    <label>Роли:
+      <input type="checkbox" name="roles"
+             th:each="role : ${roles}"
+             th:text="${role.name}"
+             th:value="${role.id}"
+             th:checked="${newUser.roles.contains(role)}"
+      />
+    </label>
+  </p>
   <input type="submit" value="Подтвердить!"/>
 </form>
 <br>
 <br>
 <a th:href="@{/logout}" class="btn">Выйти</a>
+<br>
 </body>
 </html>
