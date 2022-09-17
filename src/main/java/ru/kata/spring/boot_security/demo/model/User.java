@@ -24,6 +24,8 @@ public class User implements UserDetails {
     @Column
     private String surname;
     @Column
+    private String email;
+    @Column
     private int age;
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "users_roles",
@@ -34,12 +36,14 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String username, String password, String name, String surname, int age, Set<Role> roles) {
+    public User(String username, String password, String name, String surname
+            , int age, String email, Set<Role> roles) {
         this.username = username;
         this.password = password;
         this.name = name;
         this.surname = surname;
         this.age = age;
+        this.email = email;
         this.roles = roles;
     }
 
@@ -130,4 +134,11 @@ public class User implements UserDetails {
                 .replace("]", "");
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

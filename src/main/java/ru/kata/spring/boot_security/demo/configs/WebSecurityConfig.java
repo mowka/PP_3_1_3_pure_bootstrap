@@ -73,23 +73,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             userService.save(roleUser);
             userService.save(roleAdmin);
             User admin1 = new User("admin1", "$2a$12$Mx4/rjducuZybQEo3pXIy.4g.SS85MT.LZjAnp9vbB/wr.X.wIQPa"
-                    , "admin1", "admin1"
-                    , 1, new HashSet<>(Arrays.asList(roleUser, roleAdmin)));
+                    , "admin1", "admin1", 1
+                    , "admin1@mail.ru", new HashSet<>(Arrays.asList(roleUser, roleAdmin)));
             userService.save(admin1);
 
             User admin2 = new User("admin2", "$2a$12$JvH4wQ8iZTdVeL3jBYPzm.r4x3gQEShP/mf6Rn3rYG1HhHaQC/IPe"
-                    , "admin2", "admin2"
-                    , 1, new HashSet<>(Arrays.asList(roleAdmin)));
+                    , "admin2", "admin2", 1
+                    , "admin2@mail.ru", new HashSet<>(Arrays.asList(roleAdmin)));
             userService.save(admin2);
 
             User user1 = new User("user1", "$2a$12$ur2oF.Ie7cWN/XMdkmifBeYK7eiZqPZS1r5ir70VE3aGw0LlI6KIi"
-                    , "user1", "user1"
-                    , 1, new HashSet<>(Arrays.asList(roleUser)));
+                    , "user1", "user1", 1
+                    ,"user1@mail.ru", new HashSet<>(Arrays.asList(roleUser)));
             userService.save(user1);
 
             User user2 = new User("user2", "$2a$12$f9rko62VbLPm6.B.f4/NPeqDgtNhumxrItdG/F0TEC3lIxr2eWo16"
-                    , "user2", "user2"
-                    , 1, new HashSet<>(Arrays.asList(roleUser)));
+                    , "user2", "user2", 1
+                    , "user2@mail.ru", new HashSet<>(Arrays.asList(roleUser)));
             userService.save(user2);
         }
 

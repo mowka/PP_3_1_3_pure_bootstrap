@@ -17,21 +17,26 @@
 </head>
 <body>
 <form th:method="POST" th:action="@{/admin/}" th:object="${newUser}">
-  <input type="hidden" name="id" th:field="*{id}">
-  <label for="username">Введите username: </label>
-  <input name="username" type="text" id="username" th:field="*{username}">
+  <label for="id">ID</label>
+  <input name="id" type="text" id="id" th:field="*{id}">
   <br><br>
-  <label for="password">Введите пароль: </label>
-  <input name="password" type="text" id="password" th:field="*{password}"/>
-  <br><br>
-  <label for="name">Введите имя: </label>
+  <label for="name">First name</label>
   <input name="name" type="text" id="name" th:field="*{name}">
   <br><br>
-  <label for="surname">Введите фамилию: </label>
+  <label for="surname">Last name</label>
   <input name="surname" type="text" id="surname" th:field="*{surname}"/>
   <br><br>
-  <label for="age">Возраст</label>
+  <label for="age">Age</label>
   <input name="age" type="text" id="age" th:field="*{age}"/>
+  <br><br>
+  <label for="email">Email</label>
+  <input name="email" type="text" id="email" th:field="*{email}"/>
+  <br><br>
+  <label for="password">Password</label>
+  <input name="password" type="password" id="password" th:field="*{password}"/>
+  <br><br>
+  <label for="username">Введите username: </label>
+  <input name="username" type="text" id="username" th:field="*{username}">
   <br><br>
   <p>
     <label>Роли:
@@ -43,7 +48,7 @@
       />
     </label>
   </p>
-  <input type="submit" value="Подтвердить!"/>
+  <input type="submit" value="Edit!"/>
 </form>
 <br>
 <br>

@@ -16,15 +16,19 @@
   </style>
 </head>
 <body>
+ID
+<p th:text="${userInfo.getId()}"></p>
 Username
 <p th:text="${userInfo.getUsername()}"></p>
-Имя:
+First name
 <p th:text="${userInfo.getName()}"></p>
-Фамилия:
+Last Name
 <p th:text="${userInfo.getSurname()}"></p>
-Возраст:
+Age
 <p th:text="${userInfo.getAge()}"></p>
-Роли:
+Email
+<p th:text="${userInfo.getEmail()}"></p>
+Role
 <p th:text="${userInfo.getRolesInfo()}"></p>
 <br>
 <br>
