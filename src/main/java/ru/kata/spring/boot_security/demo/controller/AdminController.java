@@ -9,6 +9,7 @@ import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,32 +28,48 @@ public class AdminController {
 
     //Отображение пользователей - только для админов
     @GetMapping("/")
-    public String getAllUsers(Model model) {
-        model.addAttribute("users", userService.getAllUsers());
+    public String getAllUsers(Model model, Principal principal) {
+        User currentUser = userService.findByUsername(principal.getName());
+        User nullUser = new User();
+        model.addAttribute("userRoles", currentUser.getRolesInfo());
+        model.addAttribute("userEmail", currentUser.getEmail());
+//        nullUser.setRoles(new HashSet<>(Arrays.asList(userService.getAllRoles().get(0))));
+        model.addAttribute("allUsers", userService.getAllUsers());
+        model.addAttribute("nullUserRole", userService.getAllRoles());
+        model.addAttribute("newUser", nullUser);
         return "main-page";
     }
 
-    //Добавление пользователя
-    @GetMapping("/add-user")
-    public String addUser(Model model) {
-        User user = new User();
-        user.setRoles(new HashSet<>(Arrays.asList(userService.getAllRoles().get(0))));
-        model.addAttribute("roles", userService.getAllRoles());
-        model.addAttribute("newUser", user);
-        return "user-edit-page";
-    }
 
-    @GetMapping("/user-info/{id}")
-    public String userInfo(@PathVariable("id") long id, Model model) {
-        User currentUser = userService.getUser(id);
-        model.addAttribute("userInfo", currentUser);
-        return "user-page";
+    //Добавление пользователя
+//    @GetMapping("/add-user")
+//    public String addUser(Model model) {
+//        User user = new User();
+//        user.setRoles(new HashSet<>(Arrays.asList(userService.getAllRoles().get(0))));
+//        model.addAttribute("roles", userService.getAllRoles());
+//        model.addAttribute("newUser", user);
+//        return "user-edit-page";
+//    }
+
+//    @GetMapping("/user-info/{id}")
+//    public String userInfo(@PathVariable("id") long id, Model model) {
+//        User currentUser = userService.getUser(id);
+//        model.addAttribute("userInfo", currentUser);
+//        return "user-page";
+//    }
+
+    @GetMapping("/user-admin")
+    public String userInfo(Principal principal, Model model) {
+        User user = userService.findByUsername(principal.getName());
+        model.addAttribute("currentUser", user);
+        return "user-admin";
     }
 
     //Добавление пользователя
     @PostMapping()
     public String createUser(@ModelAttribute("newUser") User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setUsername(user.getEmail());
         userService.save(user);
         return "redirect:/admin/";
     }
@@ -67,7 +84,6 @@ public class AdminController {
     @RequestMapping("/update-info/{id}")
     public String userInfo(Model model, @PathVariable("id") long id) {
         User currentUser = userService.getUser(id);
-        Set<Role> roles = new HashSet<>();
         model.addAttribute("roles", userService.getAllRoles());
         model.addAttribute("newUser", currentUser);
         return "user-edit-page";

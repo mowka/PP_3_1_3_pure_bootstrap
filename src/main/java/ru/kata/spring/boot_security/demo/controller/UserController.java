@@ -19,9 +19,14 @@ public class UserController {
     }
 
     @GetMapping("/user")
-    public String updateUser(Model model, Principal principal) {
-        User currentUser = userService.findByUsername(principal.getName());
-        model.addAttribute("userInfo", currentUser);
-        return "user-page";
+    public String userInfo(Principal principal, Model model) {
+        User user = userService.findByUsername(principal.getName());
+        model.addAttribute("currentUser", user);
+        return "user";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
     }
 }

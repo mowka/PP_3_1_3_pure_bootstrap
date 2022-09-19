@@ -39,10 +39,11 @@
     <!--Левая панель-->
     <div class="col-2 mt-3">
       <nav class="nav flex-column nav-pills">
-        <a class="nav-link active">User</a>
+        <a class="nav-link" th:href="@{/admin/}">Admin</a>
+        <a class="nav-link active" aria-current="page">User</a>
       </nav>
     </div>
-    <!--Таблица пользователя-->
+    <!--Таблица пользователей-->
     <div class="col-8 mt-2">
       <h1>User information-page</h1>
       <h3>About user</h3>

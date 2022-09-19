@@ -55,13 +55,17 @@ public class UserService implements UserDetailsService {
         return userRepository.findByUsername(username);
     }
 
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
     //сюда приходит имя пользователя, а мы проверяем БД на наличие этого юзернейма
     @Transactional
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(email);
         if (user == null) {
-            throw new UsernameNotFoundException(String.format("User %s not found =(", username));
+            throw new UsernameNotFoundException(String.format("User with %s not found =(", email));
         }
         return new org.springframework.security.core.userdetails.User(user.getUsername(),
                 user.getPassword(), mapRolesToAuthorities(user.getRoles()));
