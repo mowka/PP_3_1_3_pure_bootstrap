@@ -33,10 +33,11 @@ public class AdminController {
         User nullUser = new User();
         model.addAttribute("userRoles", currentUser.getRolesInfo());
         model.addAttribute("userEmail", currentUser.getEmail());
-//        nullUser.setRoles(new HashSet<>(Arrays.asList(userService.getAllRoles().get(0))));
         model.addAttribute("allUsers", userService.getAllUsers());
         model.addAttribute("nullUserRole", userService.getAllRoles());
         model.addAttribute("newUser", nullUser);
+        User user = userService.findByUsername(principal.getName());
+        model.addAttribute("currentUser", currentUser);
         return "main-page";
     }
 
