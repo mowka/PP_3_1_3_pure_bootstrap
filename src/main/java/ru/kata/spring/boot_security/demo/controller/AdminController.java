@@ -43,30 +43,6 @@ public class AdminController {
 
 
     //Добавление пользователя
-//    @GetMapping("/add-user")
-//    public String addUser(Model model) {
-//        User user = new User();
-//        user.setRoles(new HashSet<>(Arrays.asList(userService.getAllRoles().get(0))));
-//        model.addAttribute("roles", userService.getAllRoles());
-//        model.addAttribute("newUser", user);
-//        return "user-edit-page";
-//    }
-
-//    @GetMapping("/user-info/{id}")
-//    public String userInfo(@PathVariable("id") long id, Model model) {
-//        User currentUser = userService.getUser(id);
-//        model.addAttribute("userInfo", currentUser);
-//        return "user-page";
-//    }
-
-    @GetMapping("/user-admin")
-    public String userInfo(Principal principal, Model model) {
-        User user = userService.findByUsername(principal.getName());
-        model.addAttribute("currentUser", user);
-        return "user-admin";
-    }
-
-    //Добавление пользователя
     @PostMapping()
     public String createUser(@ModelAttribute("newUser") User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
