@@ -130,9 +130,10 @@ public class User implements UserDetails {
     }
 
     public String getRolesInfo() {
-        return roles.stream().map(Role::getName).map(r -> r.substring(5))
+        return roles.stream().map(Role::getName)
                 .toList().toString().replace("[", "")
-                .replace("]", "");
+                .replace("]", "").replace("ROLE_", "")
+                .replace(",", "");
     }
 
     public String getEmail() {

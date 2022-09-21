@@ -26,17 +26,14 @@ public class AdminController {
         this.passwordEncoder = passwordEncoder;
     }
 
+
     //Отображение пользователей - только для админов
-    @GetMapping("/")
+    @GetMapping()
     public String getAllUsers(Model model, Principal principal) {
         User currentUser = userService.findByUsername(principal.getName());
-        User nullUser = new User();
-        model.addAttribute("userRoles", currentUser.getRolesInfo());
-        model.addAttribute("userEmail", currentUser.getEmail());
         model.addAttribute("allUsers", userService.getAllUsers());
-        model.addAttribute("nullUserRole", userService.getAllRoles());
-        model.addAttribute("newUser", nullUser);
-        User user = userService.findByUsername(principal.getName());
+        model.addAttribute("allRoles", userService.getAllRoles());
+        model.addAttribute("newUser", new User());
         model.addAttribute("currentUser", currentUser);
         return "main-page";
     }
@@ -52,17 +49,16 @@ public class AdminController {
     }
 
     //Удаление пользователя
-    @RequestMapping("/user-delete/{id}")
+    @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable("id") long id) {
         userService.deleteUser(id);
         return "redirect:/admin/";
     }
 
-    @RequestMapping("/update-info/{id}")
-    public String userInfo(Model model, @PathVariable("id") long id) {
-        User currentUser = userService.getUser(id);
-        model.addAttribute("roles", userService.getAllRoles());
-        model.addAttribute("newUser", currentUser);
-        return "user-edit-page";
+    @PatchMapping("/{id}")
+    public String editUser(@PathVariable("id") long id, @ModelAttribute("editUser") User editUser) {
+        editUser.setPassword(passwordEncoder.encode(editUser.getPassword()));
+        userService.editUser(id, editUser);
+        return "redirect:/admin/";
     }
 }
