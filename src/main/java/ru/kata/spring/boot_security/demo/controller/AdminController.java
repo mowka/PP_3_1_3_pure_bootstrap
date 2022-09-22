@@ -26,8 +26,6 @@ public class AdminController {
         this.passwordEncoder = passwordEncoder;
     }
 
-
-    //Отображение пользователей - только для админов
     @GetMapping()
     public String getAllUsers(Model model, Principal principal) {
         User currentUser = userService.findByUsername(principal.getName());
@@ -38,8 +36,6 @@ public class AdminController {
         return "main-page";
     }
 
-
-    //Добавление пользователя
     @PostMapping()
     public String createUser(@ModelAttribute("newUser") User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -48,7 +44,6 @@ public class AdminController {
         return "redirect:/admin/";
     }
 
-    //Удаление пользователя
     @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable("id") long id) {
         userService.deleteUser(id);

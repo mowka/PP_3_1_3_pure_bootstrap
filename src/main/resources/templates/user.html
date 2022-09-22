@@ -19,13 +19,13 @@
   <div class="container-fluid">
     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
       <li class="nav-item mt-auto">
-        <p class="text-white fw-bold h5" th:utext="${currentUser.getEmail()}"></p>
+        <p class="text-white fw-bold h4" th:utext="${currentUser.getEmail()}"></p>
       </li>
       <li class="nav-item mt-auto ms-2">
-        <p class="text-white fw-lighter h5"> with roles: </p>
+        <p class="text-white fw-lighter h4"> with roles: </p>
       </li>
       <li class="nav-item mt-auto ps-2">
-        <p class="text-white fw-light h4" th:text="${currentUser.getRolesInfo()}"></p>
+        <p class="text-white fw-light h3" th:text="${currentUser.getRolesInfo()}"></p>
       </li>
     </ul>
     <form class="d-flex">
@@ -37,19 +37,19 @@
 <div class="container-fluid">
   <div class="row">
     <!--Левая панель-->
-    <div class="col-2 mt-3">
+    <div class="col-2 mt-3 p-0  pe-0">
       <nav class="nav flex-column nav-pills">
         <a class="nav-link active">User</a>
       </nav>
     </div>
-    <div class="col-10">
-    <h1>User information-page</h1>
+    <div class="col-10 px-5" style="background-color: #f6f6f6; height: 100vh">
+    <h1 class="py-3 mb-3">User information-page</h1>
     <div class="card">
       <div class="card-header bg-light mb-3">
         <h3>About user</h3>
       </div>
       <div class="card-body">
-        <table class="table table-striped">
+        <table class="table table-striped border-top">
           <thead>
           <tr>
             <th scope="col">ID</th>
@@ -73,38 +73,6 @@
         </table>
       </div>
     </div>
-
-
-
-
-
-    <!--Таблица пользователя-->
-<!--    <div class="col-8 mt-2">-->
-<!--      <h1>User information-page</h1>-->
-<!--      <h3>About user</h3>-->
-<!--      <table class="table table-striped">-->
-<!--        <thead>-->
-<!--        <tr>-->
-<!--          <th scope="col">ID</th>-->
-<!--          <th scope="col">Name</th>-->
-<!--          <th scope="col">Last Name</th>-->
-<!--          <th scope="col">Age</th>-->
-<!--          <th scope="col">Email</th>-->
-<!--          <th scope="col">Role</th>-->
-<!--        </tr>-->
-<!--        </thead>-->
-<!--        <tbody>-->
-<!--        <tr th:each="user : ${currentUser}">-->
-<!--          <td><a th:text="${currentUser.getId()}"></a></td>-->
-<!--          <td><a th:text="${currentUser.getName()}"></a></td>-->
-<!--          <td><a th:text="${currentUser.getSurname()}"></a></td>-->
-<!--          <td><a th:text="${currentUser.getAge()}"></a></td>-->
-<!--          <td><a th:text="${currentUser.getEmail()}"></a></td>-->
-<!--          <td><a th:text="${currentUser.getRolesInfo()}"></a></td>-->
-<!--        </tr>-->
-<!--        </tbody>-->
-<!--      </table>-->
-<!--    </div>-->
   </div>
 </div>
 </div>
