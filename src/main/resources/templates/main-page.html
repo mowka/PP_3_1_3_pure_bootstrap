@@ -27,8 +27,8 @@
                     <p class="text-white fw-light h3" th:text="${currentUser.rolesInfo}"></p>
                 </li>
             </ul>
-            <form class="d-flex">
-                <a class="btn btn-dark" th:href="@{/login}" role="button">Logout</a>
+            <form class="d-flex" th:method="POST" th:action="@{/manualLogout}">
+                <button class="btn btn-dark" type="submit">Logout</button>
             </form>
         </div>
     </nav>

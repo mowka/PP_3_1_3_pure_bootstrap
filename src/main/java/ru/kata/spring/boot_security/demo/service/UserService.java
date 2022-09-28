@@ -22,13 +22,15 @@ import java.util.stream.Collectors;
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
-
+    private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository, RoleRepository roleRepository) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository
+            , PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<User> getAllUsers() {
@@ -38,13 +40,19 @@ public class UserService implements UserDetailsService {
         return roleRepository.findAll();
     }
 
+    @Transactional
     public void save(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setUsername(user.getEmail());
         userRepository.save(user);
     }
+
+    @Transactional
     public void save(Role role) {
         roleRepository.save(role);
     }
 
+    @Transactional
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
@@ -58,7 +66,7 @@ public class UserService implements UserDetailsService {
         User userToBeEdited = userRepository.getById(id);
         userToBeEdited.setName(user.getName());
         userToBeEdited.setUsername(user.getEmail());
-        userToBeEdited.setPassword(user.getPassword());
+        userToBeEdited.setPassword(passwordEncoder.encode(user.getPassword()));
         userToBeEdited.setEmail(user.getEmail());
         userToBeEdited.setRoles(user.getRoles());
         userToBeEdited.setAge(user.getAge());
@@ -73,9 +81,8 @@ public class UserService implements UserDetailsService {
         return userRepository.findByEmail(email);
     }
 
-    //сюда приходит имя пользователя, а мы проверяем БД на наличие этого юзернейма
-    @Transactional
     @Override
+    @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email);
         if (user == null) {
@@ -85,7 +92,6 @@ public class UserService implements UserDetailsService {
                 user.getPassword(), mapRolesToAuthorities(user.getRoles()));
     }
 
-    //метод для получения из коллекции ролей - коллекцию прав доступа
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
         return roles.stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
     }
