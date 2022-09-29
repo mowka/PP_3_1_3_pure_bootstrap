@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Optional;
 import java.util.Set;
 
 @Entity
@@ -130,10 +131,14 @@ public class User implements UserDetails {
     }
 
     public String getRolesInfo() {
-        return roles.stream().map(Role::getName)
-                .toList().toString().replace("[", "")
-                .replace("]", "").replace("ROLE_", "")
-                .replace(",", "");
+        if (roles == null) {
+            return "[null]";
+        } else {
+            return roles.stream().map(Role::getName)
+                    .toList().toString().replace("[", "")
+                    .replace("]", "").replace("ROLE_", "")
+                    .replace(",", "");
+        }
     }
 
     public String getEmail() {
