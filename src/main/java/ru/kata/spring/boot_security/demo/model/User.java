@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -34,10 +35,8 @@ public class User implements UserDetails {
                 joinColumns = @JoinColumn(name = "user_id"),
                 inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
-
     public User() {
     }
-
     public User(String username, String password, String name, String surname
             , int age, String email, Set<Role> roles) {
         this.username = username;
@@ -147,5 +146,31 @@ public class User implements UserDetails {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, surname, email, age, username);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj == null || getClass() != this.getClass()) {
+            return false;
+        }
+        User that = (User) obj;
+        return Objects.equals(name, that.name)
+                && Objects.equals(surname, that.surname)
+                && Objects.equals(email, that.email)
+                && Objects.equals(age, that.age)
+                && Objects.equals(username, that.username);
+    }
+
+    @Override
+    public String toString() {
+        return "User{%s: %s}".formatted(id, email);
     }
 }

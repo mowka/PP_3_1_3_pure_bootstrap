@@ -55,4 +55,9 @@ public class AdminController {
         return "redirect:/admin/";
     }
 
+
+    @RequestMapping("/index")
+    public String index() {
+        return "index";
+    }
 }
