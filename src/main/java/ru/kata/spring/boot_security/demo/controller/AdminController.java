@@ -54,10 +54,4 @@ public class AdminController {
         userService.editUser(id, editUser);
         return "redirect:/admin/";
     }
-
-
-    @RequestMapping("/index")
-    public String index() {
-        return "index";
-    }
 }

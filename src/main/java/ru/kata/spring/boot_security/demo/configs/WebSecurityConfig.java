@@ -38,11 +38,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/admin/**", "/").hasRole("ADMIN")
-                .antMatchers("/api/user").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/api/admin/**", "/admin/**").hasRole("ADMIN")
+                .antMatchers("/api/user/**", "/index").hasAnyRole("USER", "ADMIN")
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/login").usernameParameter("email")
+                .formLogin().loginPage("/login")
+                .usernameParameter("email")
                 .successHandler(successUserHandler)
                 .permitAll()
                 .and()
@@ -63,9 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return authenticationProvider;
     }
 
-
     public class Test1 {
-
         public void init() {
             Role roleUser = new Role("ROLE_USER");
             Role roleAdmin = new Role("ROLE_ADMIN");

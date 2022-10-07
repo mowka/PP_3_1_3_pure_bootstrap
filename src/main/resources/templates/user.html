@@ -28,7 +28,7 @@
         <p class="text-white fw-light h3" th:text="${currentUser.getRolesInfo()}"></p>
       </li>
     </ul>
-    <form class="d-flex" th:method="POST" th:action="@{/manualLogout}">
+    <form class="d-flex" method="POST" action="/logout">
       <button class="btn btn-dark" type="submit">Logout</button>
     </form>
   </div>

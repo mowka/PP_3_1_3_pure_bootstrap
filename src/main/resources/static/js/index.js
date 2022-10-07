@@ -290,7 +290,6 @@ function alertMessage(message, type) {
         '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
         '</div>'
     ].join('')
-
     alertPlaceholder.append(wrapper)
 }
 
@@ -298,7 +297,6 @@ function createUserModalOnPage(user, type) {
     $('#modal-div').html(getModal(user, allAuthorities, type))
     const modal = $('#userModal')
     modal.modal('show')
-
     return modal
 }
 
